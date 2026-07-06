@@ -6,7 +6,6 @@ Part of a dual-platform e-commerce governance analytics portfolio. This repo cov
 
 | File | What it is |
 |---|---|
-| `02_Ecommerce_Order_Risk_SQL_Audits.ipynb` | SQL fraud/risk auditing over a 12,000-row synthetic dataset: regional risk profiling, device/channel vulnerability analysis, behavioral outlier detection, and a governance rule engine (PASS / MFA_CHALLENGE / LOGISTICS_AUDIT / IMMEDIATE_BLOCK) |
 | `03_LLM_CoPilot_SQL_Generation.ipynb` | A text-to-SQL co-pilot: schema-grounded prompting, a self-healing sanitizer for messy LLM output, a schema-hallucination guardrail, and a live pipeline tested against both the Anthropic and Google Gemini APIs |
 | `sql_copilot_console.html` | An interactive browser demo of the same co-pilot pattern (see note below) |
 | `synthetic_ecommerce_order_risk_dataset.csv` | The source 12,000-row, 23-column dataset |
