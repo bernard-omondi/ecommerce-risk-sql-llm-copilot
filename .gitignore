@@ -1,0 +1,18 @@
+# Environment / secrets
+.env
+.env.*
+*.key
+
+# Generated local database (rebuilt from the CSV via the notebook's first cell)
+ecommerce_analytics.db
+
+# Jupyter
+.ipynb_checkpoints/
+
+# Python
+__pycache__/
+*.pyc
+.venv/
+
+# OS
+.DS_Store
