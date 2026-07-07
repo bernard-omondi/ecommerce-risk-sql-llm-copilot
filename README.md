@@ -1,6 +1,6 @@
-# E-Commerce Risk: SQL Auditing & LLM SQL Co-Pilot
+# E-Commerce Risk: LLM SQL Co-Pilot
 
-Part of a dual-platform e-commerce governance analytics portfolio. This repo covers the SQL and LLM layer — SQL-based fraud/risk auditing, a governance rule engine, and a text-to-SQL LLM co-pilot with a live browser demo. The companion Tableau/Power BI dashboard repo is here: [dual-platform-ecommerce-governance-analytics](https://github.com/bernard-omondi/dual-platform-ecommerce-governance-analytics).
+Part of a dual-platform e-commerce governance analytics portfolio. This repo covers the LLM-powered text-to-SQL co-pilot layer. The SQL fraud/risk auditing notebook and the Tableau/Power BI dashboards live in the companion repo: [dual-platform-ecommerce-governance-analytics](https://github.com/bernard-omondi/dual-platform-ecommerce-governance-analytics).
 
 ## Contents
 
@@ -8,27 +8,15 @@ Part of a dual-platform e-commerce governance analytics portfolio. This repo cov
 |---|---|
 | `03_LLM_CoPilot_SQL_Generation.ipynb` | A text-to-SQL co-pilot: schema-grounded prompting, a self-healing sanitizer for messy LLM output, a schema-hallucination guardrail, and a live pipeline tested against both the Anthropic and Google Gemini APIs |
 | `sql_copilot_console.html` | An interactive browser demo of the same co-pilot pattern (see note below) |
-| `synthetic_ecommerce_order_risk_dataset.csv` | The source 12,000-row, 23-column dataset |
-| `ecommerce_dashboard_input.csv` | A 12-column export (with a computed `governance_action` field) feeding the companion BI dashboards |
+| `synthetic_ecommerce_order_risk_dataset.csv` | The source 12,000-row, 23-column dataset the notebook builds its local SQLite database from |
 
 ## Data
 
-12,000 synthetic e-commerce orders with risk labels (`Normal`, `Return Risk`, `Fraud Risk`) and governance signals (`high_risk_ip`, `late_delivery_risk`, `address_mismatch`, `customer_support_contacts`, etc). Fraud rate is ~3.7% -- intentionally imbalanced to reflect real-world fraud detection conditions.
+12,000 synthetic e-commerce orders with risk labels (`Normal`, `Return Risk`, `Fraud Risk`) and governance signals (`high_risk_ip`, `late_delivery_risk`, `address_mismatch`, `customer_support_contacts`, etc). Fraud rate is ~3.7% -- intentionally imbalanced to reflect real-world fraud detection conditions. This is the same source dataset used across all three repos in this portfolio (SQL audits, dashboards, and this LLM co-pilot), so all three read from a single, consistent source of truth rather than diverging datasets.
 
-## Governance rule engine
+## Running the notebook
 
-A four-tier decision matrix applied consistently across the SQL audit, the dashboard export, and the LLM co-pilot's own reasoning:
-
-| Action | Color | Trigger |
-|---|---|---|
-| PASS | Teal `#4EAAA6` | Default -- no risk signals present |
-| MFA_CHALLENGE | Slate blue `#4E79A7` | High-risk channel (Paid Ads) or a flagged IP |
-| LOGISTICS_AUDIT | Orange `#F28E2B` | High-value Return Risk order |
-| IMMEDIATE_BLOCK | Red `#E15759` | Confirmed Fraud Risk, or a flagged IP on a high-risk channel |
-
-## Running the notebooks
-
-Both notebooks run against a local SQLite database (`ecommerce_analytics.db`) built from the CSV -- see the first code cell of Notebook 02. Notebook 03's live LLM sections additionally need:
+The notebook builds a local SQLite database (`ecommerce_analytics.db`) from the CSV in its first code cell. The live LLM sections additionally need:
 
 ```bash
 export ANTHROPIC_API_KEY="your-key-here"
@@ -40,7 +28,7 @@ Without these set, the notebook still displays the outputs from the original run
 
 ## The browser demo (`sql_copilot_console.html`)
 
-**Important:** this file's live API call only works when opened inside an Anthropic-hosted artifact sandbox (e.g. within a Claude.ai conversation). Opened as a plain downloaded file in a regular browser, the API call will fail -- browsers can't authenticate directly to Anthropic's API without a server in between, and this demo has none. It's included here as a portfolio artifact showing the interaction design, not as a standalone deployable app. (A production-shaped version, with a real FastAPI backend holding the key server-side, was scaffolded but not fully deployed -- ask if you'd like to see that work.)
+**Important:** this file's live API call only works when opened inside an Anthropic-hosted artifact sandbox (e.g. within a Claude.ai conversation). Opened as a plain downloaded file in a regular browser, the API call will fail -- browsers can't authenticate directly to Anthropic's API without a server in between, and this demo has none. It's included here as a portfolio artifact showing the interaction design, not as a standalone deployable app.
 
 ## Key engineering decisions
 
@@ -52,6 +40,6 @@ Without these set, the notebook still displays the outputs from the original run
 ## Portfolio context
 
 This is one of three linked pieces:
-1. **Power BI / Tableau dashboards** (DAX, separate repo) -- the executive-facing view
-2. **This repo (SQL + LLM co-pilot)** -- the analytical and AI-tooling layer
+1. **SQL fraud/risk auditing + Power BI / Tableau dashboards** -- see [dual-platform-ecommerce-governance-analytics](https://github.com/bernard-omondi/dual-platform-ecommerce-governance-analytics)
+2. **This repo (LLM SQL co-pilot)** -- the AI-tooling layer on top of that same governance logic
 3. **Predictive ML (in progress)** -- supervised classification for live fraud/return probability scoring, extending this same dataset's `is_fraud` / `is_returned` labels
