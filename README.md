@@ -1,6 +1,5 @@
 # E-Commerce Risk: LLM SQL Co-Pilot
-
-Part of a dual-platform e-commerce governance analytics portfolio. This repo covers the LLM-powered text-to-SQL co-pilot layer. The SQL fraud/risk auditing notebook and the Tableau/Power BI dashboards live in the companion repo: [dual-platform-ecommerce-governance-analytics](https://github.com/bernard-omondi/dual-platform-ecommerce-governance-analytics).
+Part of a multi-platform e-commerce governance analytics portfolio. This repo covers the SQL and LLM layer — SQL-based fraud/risk auditing, a governance rule engine, and a text-to-SQL LLM co-pilot with a live browser demo. The companion Tableau/Power BI/Looker Studio dashboard repo is here: [multi-platform-ecommerce-governance-analytics](https://github.com/bernard-omondi/multi-platform-ecommerce-governance-analytics).
 
 ## Contents
 
@@ -40,6 +39,6 @@ Without these set, the notebook still displays the outputs from the original run
 ## Portfolio context
 
 This is one of three linked pieces:
-1. **SQL fraud/risk auditing + Power BI / Tableau dashboards** -- see [dual-platform-ecommerce-governance-analytics](https://github.com/bernard-omondi/dual-platform-ecommerce-governance-analytics)
-2. **This repo (LLM SQL co-pilot)** -- the AI-tooling layer on top of that same governance logic
+1. **Power BI / Tableau / Looker Studio dashboards** (separate repo) -- the executive-facing view: [multi-platform-ecommerce-governance-analytics](https://github.com/bernard-omondi/multi-platform-ecommerce-governance-analytics)
+2. **This repo (SQL + LLM co-pilot)** -- the analytical and AI-tooling layer
 3. **Predictive ML (in progress)** -- supervised classification for live fraud/return probability scoring, extending this same dataset's `is_fraud` / `is_returned` labels
